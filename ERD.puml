@@ -1,0 +1,43 @@
+@startuml
+
+entity User {
+    * id : UUID
+    * name : String
+    * email : String
+    * role : String <<user, admin>>
+}
+
+entity Project {
+    * id : UUID
+    * name : String
+    * description : String
+    * startDate : Date
+    * endDate : Date
+}
+
+entity Todo {
+    * id : UUID
+    * title : String
+    * description : String
+    * status : String <<pending, in-progress, completed>>
+    * dueDate : Date
+    * createdDate : Date
+    * updatedDate : Date
+}
+
+entity UserProject {
+    * userId : UUID
+    * projectId : UUID
+}
+
+entity UserTodo {
+    * userId : UUID
+    * todoId : UUID
+}
+
+User "1" -- "0..*" UserProject : participates
+Project "1" -- "0..*" UserProject : has
+User "1" -- "0..*" UserTodo : assigned
+Todo "1" -- "0..*" UserTodo : belongs to
+
+@enduml
